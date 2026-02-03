@@ -101,3 +101,43 @@ export async function getUserCountByDate(
 
   return dateCountMap;
 }
+
+export async function getUsers(
+  page: number = 1,
+  limit: number = 50
+): Promise<User[]> {
+  const supabase = getSupabaseClient();
+  const offset = (page - 1) * limit;
+
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .range(offset, offset + limit - 1);
+
+  if (error) {
+    console.error("Error fetching users:", error);
+    return [];
+  }
+
+  return data as User[];
+}
+
+export async function getUsersByUuids(uuids: string[]): Promise<User[]> {
+  if (!uuids || uuids.length === 0) {
+    return [];
+  }
+
+  const supabase = getSupabaseClient();
+  const { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .in("uuid", uuids);
+
+  if (error) {
+    console.error("Error fetching users by uuids:", error);
+    return [];
+  }
+
+  return data as User[];
+}

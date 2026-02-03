@@ -15,8 +15,9 @@ export const localeDetection =
   process.env.NEXT_PUBLIC_LOCALE_DETECTION === "true";
 
 export const pathnames = {
-  en: {
-    "privacy-policy": "/privacy-policy",
-    "terms-of-service": "/terms-of-service",
-  },
+  "privacy-policy": "/privacy-policy",
+  "terms-of-service": "/terms-of-service",
+  "my-profile": "/my-profile",
+  "my-orders": "/my-orders",
+  "pricing": "/pricing",
 } satisfies Pathnames<typeof locales>;

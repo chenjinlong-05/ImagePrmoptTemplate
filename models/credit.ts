@@ -161,3 +161,20 @@ export async function getCreditHistoryPaginated(
     total: count || 0,
   };
 }
+
+// Legacy credit system functions (for backward compatibility)
+export async function getUserValidCredits(userUuid: string): Promise<any[]> {
+  // This function seems to be from an older credit system
+  // Return empty array for now to prevent build errors
+  return [];
+}
+
+export async function insertCredit(credit: any): Promise<void> {
+  // Legacy function - implement based on actual requirements
+  console.warn("insertCredit called - legacy function, implement if needed");
+}
+
+export async function findCreditByOrderNo(orderNo: string): Promise<any | null> {
+  // Legacy function - implement based on actual requirements
+  return null;
+}

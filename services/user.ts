@@ -75,9 +75,12 @@ export async function getUserUuid() {
   // 优先尝试从 NextAuth session 获取（Google 登录）
   try {
     const session = await auth();
-    if (session?.user?.uuid) {
-      console.log("[getUserUuid] Found UUID from NextAuth session:", session.user.uuid);
-      return String(session.user.uuid);
+    if (session?.user) {
+      const user = session.user as any;
+      if (user.uuid) {
+        console.log("[getUserUuid] Found UUID from NextAuth session:", user.uuid);
+        return String(user.uuid);
+      }
     }
   } catch (error) {
     console.error("[getUserUuid] Failed to get NextAuth session:", error);

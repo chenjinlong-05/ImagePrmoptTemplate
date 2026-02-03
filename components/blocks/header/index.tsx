@@ -270,13 +270,13 @@ export default function Header({ header }: { header: HeaderType }) {
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <Link href="/my-profile" locale={undefined}>{t('my_profile')}</Link>
+                    <Link href="my-profile">{t('my_profile')}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/my-orders" locale={undefined}>{t('my_orders')}</Link>
+                    <Link href="my-orders">{t('my_orders')}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/pricing" locale={undefined}>{t('recharge_credits')}</Link>
+                    <Link href="pricing">{t('recharge_credits')}</Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => signOut()}>
@@ -491,13 +491,13 @@ export default function Header({ header }: { header: HeaderType }) {
 
                         <div className="flex flex-col gap-2">
                           <Button variant="ghost" className="justify-start" asChild>
-                            <Link href="/my-profile" locale={undefined}>{t('my_profile')}</Link>
+                            <Link href="my-profile">{t('my_profile')}</Link>
                           </Button>
                           <Button variant="ghost" className="justify-start" asChild>
-                            <Link href="/my-orders" locale={undefined}>{t('my_orders')}</Link>
+                            <Link href="my-orders">{t('my_orders')}</Link>
                           </Button>
                           <Button variant="ghost" className="justify-start" asChild>
-                            <Link href="/pricing" locale={undefined}>{t('recharge_credits')}</Link>
+                            <Link href="pricing">{t('recharge_credits')}</Link>
                           </Button>
                           <Button
                             variant="ghost"

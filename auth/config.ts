@@ -151,7 +151,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           ...token.user,
           // 确保 image 字段存在，用于显示头像
           image: (token.user as any).avatar_url || (token.user as any).image,
-          name: (token.user as any).nickname || token.user.name,
+          name: (token.user as any).nickname || (token.user as any).name || 'User',
         };
         console.log("[NextAuth Session] User loaded:", session.user.email);
       }
