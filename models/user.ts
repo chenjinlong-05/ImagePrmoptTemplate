@@ -1,5 +1,6 @@
 import { supabase } from "./db";
 import { User } from "@/types/user";
+import { getSupabaseClient } from "@/models/db";
 
 export async function insertUser(user: User): Promise<User> {
   const { data, error } = await supabase
@@ -62,4 +63,41 @@ export async function updateUser(uuid: string, updates: Partial<User>): Promise<
   }
 
   return data as User;
+}
+
+export async function getUsersTotal(): Promise<number | undefined> {
+  const supabase = getSupabaseClient();
+  const { data, error } = await supabase
+    .from("users")
+    .select("id");
+
+  if (error) {
+    return undefined;
+  }
+
+  return data?.length || 0;
+}
+
+export async function getUserCountByDate(
+  startTime: string
+): Promise<Map<string, number> | undefined> {
+  const supabase = getSupabaseClient();
+  const { data, error } = await supabase
+    .from("users")
+    .select("created_at")
+    .gte("created_at", startTime)
+    .order("created_at", { ascending: true });
+
+  if (error) {
+    return undefined;
+  }
+
+  // Group by date in memory since Supabase doesn't support GROUP BY directly
+  const dateCountMap = new Map<string, number>();
+  data.forEach((item: any) => {
+    const date = item.created_at.split("T")[0];
+    dateCountMap.set(date, (dateCountMap.get(date) || 0) + 1);
+  });
+
+  return dateCountMap;
 }
