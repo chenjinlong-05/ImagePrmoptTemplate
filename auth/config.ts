@@ -158,7 +158,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             const initialCredits = parseInt(process.env.INITIAL_USER_CREDITS || "100");
             console.log("[NextAuth JWT] Creating initial credits:", initialCredits);
 
-            const creditRecord = await createUserCredits(dbUserRecord.uuid, initialCredits);
+            const creditRecord = await createUserCredits(dbUserRecord.uuid as string, initialCredits);
             if (creditRecord) {
               console.log("[NextAuth JWT] ✅ Initial credits created successfully!");
               console.log("[NextAuth JWT] Credits balance:", creditRecord.balance);
@@ -175,7 +175,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             try {
               if (user.image && user.image !== dbUserRecord.avatar_url) {
                 console.log("[NextAuth JWT] Detected new avatar image, updating DB...");
-                const updated = await updateUser(dbUserRecord.uuid, { avatar_url: user.image });
+                const updated = await updateUser(dbUserRecord.uuid as string, { avatar_url: user.image as string });
                 if (updated) {
                   dbUserRecord = updated;
                   console.log("[NextAuth JWT] ✅ Avatar updated in database");
