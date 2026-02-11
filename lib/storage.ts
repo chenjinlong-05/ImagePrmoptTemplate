@@ -14,8 +14,10 @@ export function newStorage(config?: StorageConfig) {
 
 export class Storage {
   private s3: S3Client;
+  private config?: StorageConfig;
 
   constructor(config?: StorageConfig) {
+    this.config = config;
     this.s3 = new S3Client({
       endpoint: config?.endpoint || process.env.STORAGE_ENDPOINT || "",
       region: config?.region || process.env.STORAGE_REGION || "auto",
@@ -78,14 +80,14 @@ export class Storage {
       finalUrl = `${process.env.STORAGE_DOMAIN}/${res.Key}`;
     } else {
       // 从 endpoint 提取 account_id 来构建公共端点
-      const endpoint = config?.endpoint || process.env.STORAGE_ENDPOINT || "";
+      const endpoint = this.config?.endpoint || process.env.STORAGE_ENDPOINT || "";
       const accountIdMatch = endpoint.match(/([a-f0-9]{32})/);
       if (accountIdMatch) {
         const accountId = accountIdMatch[1];
         finalUrl = `https://pub-${accountId}.r2.dev/${bucket}/${res.Key}`;
       } else {
         // 回退到原始 location（可能无法公开访问）
-        finalUrl = res.Location;
+        finalUrl = res.Location || "";
       }
     }
 

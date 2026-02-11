@@ -653,7 +653,7 @@ export default function TextToImagePage() {
       }
     } catch (error) {
       console.error('[ImageToImage] 生成异常:', error);
-      toast.error(error.message || t('generation_error'));
+      toast.error((error as Error).message || t('generation_error'));
     } finally {
       setIsGeneratingI2I(false);
     }
